@@ -20,17 +20,11 @@ python -m uvicorn app.main:app --reload
 
 Abra http://127.0.0.1:8000. Sem `APP_PASSWORD` o app fica aberto (uso local) e cria dados de exemplo na primeira execução (`SEMEAR_DEMO=0` desliga).
 
-## Demonstração online (Render)
+## Demonstração online
+
+A demo roda no plano gratuito do Render a partir do [`render.yaml`](render.yaml), com `DEMO_MODE=1`: somente leitura, dados fictícios e nenhum dado real exposto. Para publicar sua própria cópia, use o botão:
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Igorpy16/Prumo)
-
-O arquivo [`render.yaml`](render.yaml) publica uma demonstração pública no plano gratuito do Render, usando o próprio `Dockerfile`, com `DEMO_MODE=1`: somente leitura, dados fictícios, sem login e banco temporário isolado — nenhum dado real fica exposto.
-
-1. Em [dashboard.render.com](https://dashboard.render.com), clique em **New → Blueprint** (ou no botão acima).
-2. Selecione este repositório e confirme em **Apply**.
-3. Ao fim do build, o Render mostra o endereço. A demo oficial está em https://prumo-demo.onrender.com. Cada `git push` na `main` publica de novo.
-
-No plano gratuito o serviço "dorme" após ~15 min sem acesso; a primeira visita seguinte leva de 30 a 60 s para responder.
 
 ## Rodando com Docker
 
