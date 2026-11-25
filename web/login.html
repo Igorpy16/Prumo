@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar · Prumo</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/assets/js/tema.js"></script>
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+  <main class="entrada">
+    <div class="entrada-caixa">
+      <a class="marca" href="/"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 1v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 13l-6 11h12z" fill="var(--receita-cor)"/></svg>Prumo</a>
+      <h1>Suas finanças, no esquadro.</h1>
+      <p>Digite a senha para abrir seus lançamentos.</p>
+      <form id="form">
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input id="senha" name="senha" type="password" autocomplete="current-password" required autofocus>
+        </div>
+        <p class="erro" id="erro" role="alert"></p>
+        <button class="btn primario" type="submit">Entrar</button>
+      </form>
+    </div>
+  </main>
+  <script type="module" src="/assets/js/login.js"></script>
+</body>
+</html>

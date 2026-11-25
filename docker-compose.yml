@@ -1,0 +1,29 @@
+# Uso: copie .env.example para .env, defina APP_PASSWORD e rode `docker compose up -d --build`.
+services:
+  app:
+    build: .
+    env_file: .env
+    volumes:
+      - dados:/data
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    expose: ["8000"]
+
+  caddy:
+    image: caddy:2-alpine
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMINIO: ${DOMINIO:-localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_dados:/data
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  dados:
+  caddy_dados:

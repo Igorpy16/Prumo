@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prumo · controle financeiro pessoal</title>
+  <meta name="description" content="Veja para onde vai o seu dinheiro: receitas, despesas, metas por categoria e indicadores do Banco Central.">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/assets/js/tema.js"></script>
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+  <div id="faixa-demo" class="faixa-demo" hidden></div>
+  <header class="topo">
+    <div class="topo-in">
+      <a class="marca" href="#inicio" aria-label="Prumo, início">
+        <svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 1v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 13l-6 11h12z" fill="var(--receita-cor)"/></svg>Prumo
+      </a>
+      <nav class="nav" aria-label="Seções">
+        <a href="#inicio">Visão geral</a><a href="#fluxo">Fluxo</a><a href="#categorias">Categorias</a><a href="#metas">Metas</a><a href="#lancamentos">Lançamentos</a>
+      </nav>
+      <div class="acoes">
+        <label class="so-leitor" for="periodo">Período</label>
+        <select id="periodo" class="periodo">
+          <option value="mes">Este mês</option><option value="3m">3 meses</option><option value="6m" selected>6 meses</option>
+          <option value="12m">12 meses</option><option value="tudo">Tudo</option><option value="custom">Personalizado…</option>
+        </select>
+        <button class="btn" id="btn-filtros" type="button"><span data-icone="filtro"></span><span class="rotulo">Filtros</span></button>
+        <button class="btn icone fantasma" id="btn-tema" type="button" aria-label="Alternar tema claro e escuro"><span data-icone="tema"></span></button>
+        <button class="btn fantasma" id="btn-sair" type="button" hidden>Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="abertura secao" id="inicio" aria-labelledby="titulo-inicio">
+      <h1 class="so-leitor" id="titulo-inicio">Visão geral das suas finanças</h1>
+      <div id="abertura"><div class="esqueleto esq-frase"></div></div>
+      <dl class="mercado" id="mercado" hidden></dl>
+      <p class="mercado-nota" id="mercado-nota"></p>
+      <p class="mercado-fonte" id="mercado-fonte"></p>
+    </section>
+
+    <section class="secao" aria-label="Totais do período"><dl class="livro" id="livro"></dl><div id="filtros-ativos" class="filtros-ativos"></div></section>
+
+    <section class="secao" id="fluxo" aria-labelledby="t-fluxo">
+      <div class="secao-cab"><h2 id="t-fluxo">Mês a mês</h2><p>Barras mostram o que entrou e o que saiu; a linha mostra o saldo de cada mês.</p></div>
+      <div class="grafico">
+        <div class="chave"><span><i class="rec-c"></i>Receitas</span><span><i class="des-c"></i>Despesas</span><span><i class="linha"></i>Saldo do mês</span></div>
+        <div id="grafico-fluxo"></div>
+      </div>
+    </section>
+
+    <section class="secao" id="categorias" aria-labelledby="t-cat">
+      <div class="secao-cab"><h2 id="t-cat">Para onde foi o dinheiro</h2><p>Toque em uma categoria para ver só os lançamentos dela.</p></div>
+      <div class="duas-colunas">
+        <ul class="rank" id="rank-categorias"></ul>
+        <div>
+          <h3 class="sub-titulo">Maiores despesas</h3><ul class="lista-simples" id="maiores"></ul>
+          <h3 class="sub-titulo espaco-topo">Por conta</h3><div id="por-conta"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" id="metas" aria-labelledby="t-metas">
+      <div class="secao-cab">
+        <h2 id="t-metas">Metas do mês</h2>
+        <div class="mes-passo">
+          <button class="btn icone fantasma" id="mes-ant" type="button" aria-label="Mês anterior"><span data-icone="esq"></span></button>
+          <strong id="mes-meta" aria-live="polite"></strong>
+          <button class="btn icone fantasma" id="mes-prox" type="button" aria-label="Próximo mês"><span data-icone="dir"></span></button>
+          <button class="btn" id="btn-metas" type="button">Editar metas</button>
+        </div>
+      </div>
+      <p class="resumo-metas" id="resumo-metas"></p>
+      <div class="metas" id="lista-metas"></div>
+    </section>
+
+    <section class="secao" id="lancamentos" aria-labelledby="t-lanc">
+      <div class="secao-cab"><h2 id="t-lanc">Lançamentos</h2>
+        <div class="barra-lista sem-margem">
+          <button class="btn" id="btn-importar" type="button">Importar CSV</button>
+          <button class="btn" id="btn-exportar" type="button">Exportar CSV</button>
+          <button class="btn primario" id="btn-novo" type="button"><span data-icone="mais"></span>Novo lançamento</button>
+        </div>
+      </div>
+      <div class="barra-lista">
+        <div class="campo-busca"><span data-icone="busca"></span><label class="so-leitor" for="busca">Buscar por descrição</label><input id="busca" type="search" placeholder="Buscar por descrição" autocomplete="off"></div>
+      </div>
+      <div class="tabela-wrap" id="tabela"></div>
+      <div class="paginacao" id="paginacao"></div>
+      <input type="file" id="arquivo-csv" accept=".csv,text/csv" hidden>
+    </section>
+  </main>
+
+  <footer class="rodape" id="creditos">
+    <div>
+      <h2>Prumo</h2>
+      <p>Controle financeiro pessoal. Seus lançamentos ficam em um banco SQLite no seu servidor; nada é enviado a terceiros. Só os indicadores de mercado vêm de uma API pública.</p>
+      <p class="espaco-topo-p" id="versao"></p>
+    </div>
+    <div>
+      <h2>Créditos</h2>
+      <ul>
+        <li>Indicadores: <a href="https://dadosabertos.bcb.gov.br" rel="noopener">Banco Central do Brasil, Dados Abertos (SGS)</a>, licença <a href="https://opendatacommons.org/licenses/odbl/1-0/" rel="noopener">ODbL</a>. Projeto não afiliado ao BCB.</li>
+        <li>Fontes: Bricolage Grotesque e Figtree (SIL OFL), via Fontsource.</li>
+        <li>Feito com FastAPI, SQLite e JavaScript puro.</li>
+      </ul>
+    </div>
+  </footer>
+  <div class="avisos" id="avisos" aria-live="polite"></div>
+  <script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>
