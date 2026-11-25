@@ -1,0 +1,17 @@
+# Blueprint do Render: demonstração pública do Prumo (plano gratuito).
+# Somente leitura, dados fictícios em banco temporário, sem login — nenhum dado real fica exposto.
+# Uso: no Render, New > Blueprint > selecione este repositório.
+services:
+  - type: web
+    name: prumo-demo
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /healthz
+    envVars:
+      - key: DEMO_MODE
+        value: "1"
+      - key: REPO_URL
+        value: https://github.com/Igorpy16/Prumo
