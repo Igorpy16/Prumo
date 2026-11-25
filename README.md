@@ -1,5 +1,7 @@
 # Prumo — controle financeiro pessoal
 
+**[▶ Ver demo](https://prumo-demo.onrender.com)** — somente leitura, com dados fictícios. No plano gratuito, a primeira visita pode levar até ~1 min enquanto o servidor acorda.
+
 Veja para onde vai o seu dinheiro: receitas, despesas, metas por categoria, importação/exportação de CSV e indicadores do mercado (Selic, CDI, IPCA, dólar) vindos do Banco Central.
 
 - **Front-end:** site de rolagem contínua em JavaScript puro (módulos ES), gráficos em SVG, tema claro/escuro, sem CDN.
@@ -26,7 +28,7 @@ O arquivo [`render.yaml`](render.yaml) publica uma demonstração pública no pl
 
 1. Em [dashboard.render.com](https://dashboard.render.com), clique em **New → Blueprint** (ou no botão acima).
 2. Selecione este repositório e confirme em **Apply**.
-3. Ao fim do build, o Render mostra o endereço (algo como `https://prumo-demo.onrender.com`). Cada `git push` na `main` publica de novo.
+3. Ao fim do build, o Render mostra o endereço. A demo oficial está em https://prumo-demo.onrender.com. Cada `git push` na `main` publica de novo.
 
 No plano gratuito o serviço "dorme" após ~15 min sem acesso; a primeira visita seguinte leva de 30 a 60 s para responder.
 
